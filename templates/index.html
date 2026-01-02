@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>School Home Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+
+    <body>
+
+    
+        <div class="header">
+        <h1>McGill University</h1>
+        </div>
+    
+        <div class="main-grid">
+            <div></div>
+            <div class="login-window main-window">
+                <div class="login-content">
+                    <h2 class="window-header">Account Login</h2>
+                    <button class="choice-button js-student-button">Student</button>
+                    <button class="choice-button js-staff-button">Staff</button>
+
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="error-text {{ category}}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <div class="js-login login-container"></div>
+                    
+                </div>
+
+            </div>
+            <div class="main-window">
+                <h2>Announcements</h2>
+            </div>
+            
+
+        </div>
+        
+
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+Student, Jack, 1234, 19, Engineering, test
+Student, Sally, 2349, 20, Engineering, test
+Student, Bob, 9999, 18, Commerce, test
+Student, Don, 3465, 21, Engineering, test
+Student, Laura, 8918, 19, Medicine, test
+Student, Javier, 3432, 22, Commerce, test
+Student, Sarah, 8700, 18, Business, test
+Student, Jodi, 7654, 21, Humanities, test
+Student, Paul, 3331, 18, Engineering, test
+Student, Daniel, 0987, 23, Business, test
+Student, Amy, 6790, 20, Science, test
+Student, George, 9901, 18, Medicine, test
+Student, Maria, 1267, 22, Science, test
+Student, Ruth, 3210, 18, Business, test
+Student, Marty, 8888, 23, Commerce, test
+Student, Eve, 1002, 20, Engineering, test
+Student, Adam, 0001, 20, Economics, test
+Student, Patrick, 9201, 24, Science, test
+Student, Sandy, 8121, 18, Business, test
+
+Staff, Ilgaz, 0011, hello
+Staff, Gustavious, 1001, third
+
+Course, COMP-202, 3, Foundations of Programming
+Course, COMP-310, 4, Operating Systems
+Course, ECON-208, 3, Microeconomic Analysis and Applications
+Course, ECON-308, 2, Governmental Policy Towards Business
+Course, ECSE-200, 3, Electric Circuits 1
+Course, ECSE-205, 3, Probability and Statistics for Engineers
+Course, ECSE-206, 3, Introduction to Signals and Systems
+Course, ECSE-210, 3, Electric Circuits 2
+Course, ECSE-211, 3, Design Principles and Methods
+Course, ECSE-222, 3, Digital Logic
+Course, ECSE-223, 3, Model-Based Programming
+Course, ECSE-250, 3, Fundamentals of Software Development
+Course, ECSE-324, 4, Computer Organization
+Course, FACC-100, 1, Introduction to the Engineering Profession
+Course, MATH-240, 3, Discrete Structures
+Course, MATH-262, 3, Intermediate Calculus
+Course, MATH-263, 3, Ordinary Differential Equations for Engineers
+
+Curriculum, CE-SEM-1, MATH-262; MATH-263; MATH-240; COMP-202
+Curriculum, CE-SEM-2, ECSE-200; ECSE-205; ECSE-250; ECSE-222; FACC-100
+Curriculum, CE_SEM-3, ECSE-210; ECSE-211; ECSE-206; ECSE-324; ECSE-223

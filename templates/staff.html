@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Menu</title>
+    <link rel="stylesheet" href=" {{ url_for('static', filename='styles.css')}} ">
+</head>
+<body>
+    <div class="header">
+        <h1>McGill University</h1>
+    </div>
+    <div class="student-window staff-window">
+        <div class="st-menu-head">
+        <h2>Staff Menu</h2>
+        </div>
+        <p>Welcome back {{ name }}</p>
+        <button class="staff-button">Course List</button>
+        <button class="staff-button">Student List</button>
+
+        <div class="staff-course-table">
+            <table class="staff-table">
+                <thead>
+                    <tr>
+                        <td>Course Name</td>
+                        <td>Course Code</td>
+                        <td>Credits</td>
+                        <td>Enrolled Students</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in school.courses %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.code }}</td>
+                        <td>{{ course.credits }}</td>
+                        <td>{{ course.enrolled }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <button class="back-button" onclick="window.location.href='/'">Go Back</button>
+
+    <script src="{{ url_for('static', filename='staff.js')}}"></script>
+</body>
+</html>
