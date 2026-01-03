@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, session, flash
-from school_data import find_id, verify_staff, course_list, verify_student, sch
+from school_data import find_id, verify_staff, course_list, verify_student, sch, find_course
+from announcements import dates
 
 app = Flask(__name__)
 
@@ -7,7 +8,7 @@ app.secret_key = "secret-key"
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", dates=dates)
 
 #check if webpage is running
 @app.route("/ping")
@@ -49,9 +50,15 @@ def add_course():
     st = find_id(st_id)
     print(st.course_data)
     if choice == "add":
-        st.enroll_class(course_code)
+        success = st.enroll_class(course_code)
     elif choice == "delete":
-        st.drop_class(course_code)
+        success = st.drop_class(course_code)
+    if not success:
+        flash("Unknown course code", "error")
+    elif success == 1:
+        pass
+    elif success == 2:
+        flash("Reached maximum course limit", "error")
     print(st.course_data)
 
     return redirect(url_for("submit"))
@@ -65,6 +72,13 @@ def staff_page():
         flash("Invalid ID or password", "error")
         return render_template("index.html")
     return render_template("staff.html", name=staff.name, id=staff.id, school=sch)
+
+@app.route("/staff/<course_code>/students")
+def view_students(course_code):
+    course = find_course(course_code)
+    students = course.students
+
+    return { "students": [ {'name': s.name, "id": s.id} for s in students] }
 
 
 

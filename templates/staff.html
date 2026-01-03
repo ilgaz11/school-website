@@ -15,8 +15,8 @@
         <h2>Staff Menu</h2>
         </div>
         <p>Welcome back {{ name }}</p>
-        <button class="staff-button">Course List</button>
-        <button class="staff-button">Student List</button>
+        <button class="staff-button js-course-list">Course List</button>
+        <button class="staff-button js-student-list">Student List</button>
 
         <div class="staff-course-table">
             <table class="staff-table">
@@ -34,9 +34,11 @@
                         <td>{{ course.name }}</td>
                         <td>{{ course.code }}</td>
                         <td>{{ course.credits }}</td>
-                        <td>{{ course.enrolled }}</td>
-                    </tr>
+                        <td>{{ course.enrolled }} 
+                            <button class="students-button js-students-button" data-course-code="{{ course.code }}">View Students</button>
+                        </td>
                     {% endfor %}
+
                 </tbody>
             </table>
         </div>

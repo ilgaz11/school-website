@@ -70,6 +70,13 @@
                         <button class="submit-button js-course-submit add-selected" type="submit" value="add" name="sub-button">Add</button>
                         <p class="not-found-info"></p>
                     </form>
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="error-text course-error">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </div>         
 

@@ -89,9 +89,9 @@ class Student:
 
 	def enroll_class(self, code: str):
 		if len(self.courses) >= 7:
-			return
+			return 2
 		for course in self.school.courses:
-			if course.code == code:
+			if course.code.strip() == code:
 				if self not in course.students:
 					course.students.append(self)
 					course.update_count()
@@ -99,8 +99,8 @@ class Student:
 
 				if code not in self.course_data:
 					self.course_data[code] = [[], course.credits]
-				return True
-		return False
+				return 1
+		return 0
 			
 
 	def enroll_to_department(self, dep: str):
@@ -113,7 +113,6 @@ class Student:
 	def enroll_curriculum(self, cur: list):
 		if cur not in curriculums:
 			raise KeyError("Curriculum code not found")
-			return
 		for code in curriculums[cur]:
 			self.enroll_class(code)
 
@@ -127,6 +126,8 @@ class Student:
 				if self in course.students:
 					course.students.remove(self)
 					course.update_count()
+				return 1
+		return 0
 
 	def avg_grades(self):
 		avg_grades = {}
