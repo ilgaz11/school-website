@@ -1,7 +1,6 @@
 from datetime import datetime, date
 
 
-
 now = datetime.now()
 today = now.strftime("%B %d, %Y")
 

@@ -5,6 +5,7 @@ body {
     background-image: url("images/mcgill_bg.webp");
 }
 
+
 .header {
     background-color: rgb(220, 55, 22);
     background-image: url(images/header_bg2.avif);
@@ -235,16 +236,21 @@ thead {
 }
 
 .staff-button {
-    width: 130px;
-    height: 50px;
-    background-color: rgb(40, 59, 198);
+    display: inline-block;
+    width: 260px;
+    height: 60px;
+    background-color: rgb(51, 67, 184);
     color: white;
-    font-size: 18px;
+    font-size: 20px;
     border: none;
     font-weight: 300;
     cursor: pointer;
-    margin-bottom: 15px;
-    margin-right: 2px;
+    margin-bottom: 35px;
+    text-decoration: none;
+    align-content: center;
+    justify-content: center;
+    padding: 0px auto;
+    text-align: center;
 }
 
 .course-error {
@@ -269,6 +275,10 @@ thead {
     background-color: rgba(235, 235, 235, 0.85);
     display: grid;
     justify-items: center;
+}
+
+form {
+    display: inline-block;
 }
 
 

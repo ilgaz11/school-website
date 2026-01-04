@@ -15,33 +15,16 @@
         <h2>Staff Menu</h2>
         </div>
         <p>Welcome back {{ name }}</p>
-        <button class="staff-button js-course-list">Course List</button>
-        <button class="staff-button js-student-list">Student List</button>
 
-        <div class="staff-course-table">
-            <table class="staff-table">
-                <thead>
-                    <tr>
-                        <td>Course Name</td>
-                        <td>Course Code</td>
-                        <td>Credits</td>
-                        <td>Enrolled Students</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for course in school.courses %}
-                    <tr>
-                        <td>{{ course.name }}</td>
-                        <td>{{ course.code }}</td>
-                        <td>{{ course.credits }}</td>
-                        <td>{{ course.enrolled }} 
-                            <button class="students-button js-students-button" data-course-code="{{ course.code }}">View Students</button>
-                        </td>
-                    {% endfor %}
+        <a href="{{ url_for('view_course_list') }}" class="staff-button">Course List</a>
+        <a href="{{ url_for('view_student_list') }}" class="staff-button">Student List</a>
+        <a href="{{ url_for('enter_grades') }}" class="staff-button">Enter Grades</a>
+        <a class="staff-button">Make Announcement</a>
 
-                </tbody>
-            </table>
-        </div>
+
+        {% block content %}
+
+        {% endblock %}
     </div>
 
 

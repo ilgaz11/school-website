@@ -8,7 +8,7 @@ app.secret_key = "secret-key"
 
 @app.route("/")
 def home():
-    return render_template("index.html", dates=dates)
+    return render_template("index.html")
 
 #check if webpage is running
 @app.route("/ping")
@@ -71,14 +71,29 @@ def staff_page():
     if not staff:
         flash("Invalid ID or password", "error")
         return render_template("index.html")
+    session["staff_name"] = staff.name
     return render_template("staff.html", name=staff.name, id=staff.id, school=sch)
 
+
+#delete this when ready
 @app.route("/staff/<course_code>/students")
 def view_students(course_code):
     course = find_course(course_code)
     students = course.students
 
     return { "students": [ {'name': s.name, "id": s.id} for s in students] }
+
+@app.route("/staff/course-list")
+def view_course_list():
+    return render_template("staff_course_list.html", school=sch, name=session["staff_name"])
+
+@app.route("/staff/student-list")
+def view_student_list():
+    return render_template("staff_student_list.html", school=sch, name=session["staff_name"])
+
+@app.route("/staff/enter-grades")
+def enter_grades():
+    return render_template("staff_enter_grades.html", school=sch, name=session["staff_name"] )
 
 
 

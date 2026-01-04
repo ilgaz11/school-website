@@ -1,0 +1,29 @@
+{% extends "staff.html" %}
+
+{% block content %}
+<div class="staff-course-table">
+            <table class="staff-table">
+                <thead>
+                    <tr>
+                        <td>Course Name</td>
+                        <td>Course Code</td>
+                        <td>Credits</td>
+                        <td>Enrolled Students</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in school.courses %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.code }}</td>
+                        <td>{{ course.credits }}</td>
+                        <td>{{ course.enrolled }} 
+                            <button class="students-button js-students-button" data-course-code="{{ course.code }}">View Students
+                            </button>
+                        </td>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+{% endblock %}
