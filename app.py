@@ -93,7 +93,30 @@ def view_student_list():
 
 @app.route("/staff/enter-grades")
 def enter_grades():
-    return render_template("staff_enter_grades.html", school=sch, name=session["staff_name"] )
+    student_id = request.args.get("id")
+
+    student = find_id(student_id)
+    avg_grades=None
+    if student:
+        avg_grades = student.avg_grades()
+        session["chosen_student_id"] = student.id
+    
+
+    return render_template("staff_enter_grades.html", school=sch, name=session["staff_name"], stud=student, grades=avg_grades)
+
+@app.route("/add-new-grades", methods=["POST", "GET"])
+def add_new_grades():
+    try:
+        added_grade = int(request.form.get("new-grade"))
+    except ValueError:
+        added_grade = 0
+    course_code = request.form.get("course-code")
+    student = find_id(session["chosen_student_id"])
+    student.enter_grade(course_code, added_grade)
+    avg_grades=student.avg_grades()
+    print(added_grade, course_code)
+    return render_template("staff_enter_grades.html", school=sch, name=session["staff_name"], stud=student, grades=avg_grades)
+
 
 
 

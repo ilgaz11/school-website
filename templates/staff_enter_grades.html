@@ -1,6 +1,48 @@
 {% extends "staff.html" %}
 
 {% block content %}
-<h3>Search Student</h3>
+<h3>Search For Student</h3>
+<form method="GET" action="/staff/enter-grades">
+    <input class="input-box" placeholder="Student ID" name="id">
+    <button class="submit-button" type="submit">Search</button>
+</form>
+
+{% if stud %}
+    <p>{{ stud.name }}</p>
+    <p>{{ stud.id }}</p>
+    <div>
+        <table class="grades-table">
+            <thead>
+                <tr>
+                    <td>Course</td>
+                    <td>Credits</td>
+                    <td>Grade</td>
+                    <td class="next-cell"></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for code, grade in grades.items() %}
+                <tr>
+                    <td>{{ code }}</td>
+                    <td>{{ grade[1] }}</td>
+                    <td>{{ grade[0] }}</td>
+                    <td class="next-cell">
+                        <form action="/add-new-grades" method="POST">
+                            <input class="grade-input" type="text" placeholder="New Grade" name="new-grade">
+                            <button class="enter-grade-button">Enter Grade</button>
+                            <input type="hidden" name="course-code" value="{{ code }}">
+                        </form>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+
+{% endif %}
+
 
 {% endblock %}
+

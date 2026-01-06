@@ -281,5 +281,53 @@ form {
     display: inline-block;
 }
 
+.next-cell {
+    border: none;
+    background-color: transparent;
+}
+
+.enter-grade-button {
+    background-color: rgb(114, 114, 114);
+    border: none;
+    color: white;
+    width: 105px;
+    cursor: pointer;
+}
+
+.grades-table {
+    width: 600px;
+    border-collapse: collapse;
+    background-color: rgb(233, 233, 233);
+    margin-bottom: 50px;
+    font-size: 18px;
+    display: table;
+
+}
+
+.grades-table th:nth-child(1), .grades-table td:nth-child(1) {
+    width: 170px;
+}
+
+.grades-table th:nth-child(2), .grades-table td:nth-child(2) {
+    width: 100px;
+}
+
+.grades-table th:nth-child(4), .grades-table td:nth-child(4) {
+    width: 210px;
+}
+
+.grades-table tbody {
+    height: 80px;
+    align-items: center;
+}
+
+.grade-input {
+    width: 100px;
+    height: 16px;
+}
+
+.class-action {
+    height: 50px;
+}
 
 
