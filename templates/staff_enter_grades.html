@@ -17,6 +17,7 @@
                     <td>Course</td>
                     <td>Credits</td>
                     <td>Grade</td>
+                    <td>Grades</td>
                     <td class="next-cell"></td>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                     <td>{{ code }}</td>
                     <td>{{ grade[1] }}</td>
                     <td>{{ grade[0] }}</td>
+                    <td>{{ grade[2]}}</td>
                     <td class="next-cell">
                         <form action="/add-new-grades" method="POST">
                             <input class="grade-input" type="text" placeholder="New Grade" name="new-grade">

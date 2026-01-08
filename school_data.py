@@ -135,7 +135,8 @@ class Student:
 			grades = data[0]
 			credits = data[1]
 			avg = "N/A" if len(grades) == 0 else str(round(sum(grades) / len(grades), 1))
-			avg_grades[code] = [avg, credits]
+			str_grades = " ".join(map(str, grades))
+			avg_grades[code] = [avg, credits, str_grades]
 		return avg_grades
 
 	def __str__(self):
