@@ -4,7 +4,8 @@ To-Do:
 - fix course student list
 """
 
-
+#this function reads data.csv and updates the student, course, and staff lists as well as 
+#the curriculum dictionary
 def initialize_school(filename: str, lst1: list, lst2: list, lst3: list, dict1: dict):
 	with open(filename, "r") as file:
 		data = file.read()
@@ -36,7 +37,7 @@ def initialize_school(filename: str, lst1: list, lst2: list, lst3: list, dict1: 
 
 
 
-
+#this function prints all students and courses 
 def print_school(s_list, c_list):
 	for s in s_list:
 		print(s)
@@ -170,21 +171,18 @@ class Staff:
 		self.password = password
 
 
+#-----these are needed to set up the school-----#
 
 student_list = []
 course_list = []
 staff_list = []
 curriculums = {}
 
-
-sem_cur = ["MATH-262", "MATH-263", "MATH-240", "COMP-202"]
-
-
-####these are needed to set up the school
 sch = School()
 
 initialize_school("data.csv", student_list, course_list, staff_list, curriculums)
-###
+
+#-----------------------------------------------#
 
 
 students = student_list[0 : 6]
@@ -271,7 +269,7 @@ if __name__ == "__main__":
 
 
 
-
+#sem_cur = ["MATH-262", "MATH-263", "MATH-240", "COMP-202"]
 # # print_school(student_list, course_list)
 # s1 = student_list[9]
 # s2 = student_list[8]

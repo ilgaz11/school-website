@@ -2,10 +2,13 @@ from flask import Flask, render_template, request, url_for, redirect, session, f
 from school_data import find_id, verify_staff, course_list, verify_student, sch, find_course
 from announcements import dates
 
+#create flask app
 app = Flask(__name__)
 
+#secret key flash messages
 app.secret_key = "secret-key"
 
+#main route
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -15,6 +18,7 @@ def home():
 def ping():
     return "pong"
 
+#student page
 @app.route("/student", methods=["POST", "GET"])
 def submit():
     #print("1")
@@ -40,7 +44,7 @@ def submit():
 
 
 
-
+#add course action
 @app.route("/course", methods=["POST"])
 def add_course():
     course_code = request.form.get("course-code")
@@ -63,6 +67,7 @@ def add_course():
 
     return redirect(url_for("submit"))
 
+#staff page
 @app.route("/staff", methods=["POST", "GET"])
 def staff_page():
     staff_id = request.form.get("staff-id")
@@ -83,14 +88,17 @@ def view_students(course_code):
 
     return { "students": [ {'name': s.name, "id": s.id} for s in students] }
 
+#course list in staff page
 @app.route("/staff/course-list")
 def view_course_list():
     return render_template("staff_course_list.html", school=sch, name=session["staff_name"])
 
+#student list in staff page
 @app.route("/staff/student-list")
 def view_student_list():
     return render_template("staff_student_list.html", school=sch, name=session["staff_name"])
 
+#grade enter page in staff page
 @app.route("/staff/enter-grades")
 def enter_grades():
     student_id = request.args.get("id")
@@ -104,8 +112,10 @@ def enter_grades():
 
     return render_template("staff_enter_grades.html", school=sch, name=session["staff_name"], stud=student, grades=avg_grades)
 
+#enter grades action
 @app.route("/add-new-grades", methods=["POST", "GET"])
 def add_new_grades():
+    #check if new grade is valid
     try:
         added_grade = int(request.form.get("new-grade"))
     except ValueError:
