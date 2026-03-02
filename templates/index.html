@@ -11,6 +11,19 @@
         <div class="header">
         <h1>McGill University</h1>
         </div>
+        <!-- <nav>
+            <ul class="navigation-ul">
+                <li class="nav-button">
+                    <a class="nav-link">Login</a>
+                </li>
+                <li class="nav-button">
+                    <a class="nav-link">Courses</a>
+                </li>
+                <li class="nav-button">
+                    <a class="nav-link">About</a>
+                </li>
+            </ul>
+        </nav> -->
     
         <div class="main-grid">
             <!--Empty container do not remove-->
@@ -24,7 +37,10 @@
                     {% with messages = get_flashed_messages(with_categories=True) %}
                         {% if messages %}
                             {% for category, message in messages %}
-                                <div class="error-text {{ category}}">{{ message }}</div>
+                                <div class="error-text {{ category}}">
+                                    <img class="error-img" src="../static/images/error-icon-3.png" width="20" >
+                                      {{ message }}
+                                </div>
                             {% endfor %}
                         {% endif %}
                     {% endwith %}
@@ -34,9 +50,14 @@
                 </div>
 
             </div>
-            <div class="side-window">
+            <div class="main-window">
                 <div>
                     <h2 class="side-header">Dates</h2>
+                    <div>
+                        <pre class="dates"> Today: {{ dates["today"] }}</pre>
+                        <pre class="dates"> Start: {{ dates["sem_start"] }} </pre>
+                        <pre class="dates" > End:   {{ dates["sem_end"] }}</pre>
+                    </div>
                 </div>
 
                 <h2 class="side-header">Announcements</h2>

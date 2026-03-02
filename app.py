@@ -11,7 +11,7 @@ app.secret_key = "secret-key"
 #main route
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", dates=dates)
 
 #check if webpage is running
 @app.route("/ping")
@@ -75,7 +75,7 @@ def staff_page():
     staff = verify_staff(staff_id, staff_password)
     if not staff:
         flash("Invalid ID or password", "error")
-        return render_template("index.html")
+        return redirect(url_for("home"))
     session["staff_name"] = staff.name
     return render_template("staff.html", name=staff.name, id=staff.id, school=sch)
 

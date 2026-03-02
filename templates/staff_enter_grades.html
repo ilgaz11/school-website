@@ -30,8 +30,10 @@
                     <td>{{ grade[2]}}</td>
                     <td class="next-cell">
                         <form action="/add-new-grades" method="POST">
-                            <input class="grade-input" type="text" placeholder="New Grade" name="new-grade">
-                            <button class="enter-grade-button">Enter Grade</button>
+                            <div>
+                                <input class="grade-input" type="text" placeholder="New Grade" name="new-grade">
+                                <button class="enter-grade-button">+</button>
+                            </div>
                             <input type="hidden" name="course-code" value="{{ code }}">
                         </form>
 
