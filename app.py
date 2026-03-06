@@ -1,12 +1,24 @@
 from flask import Flask, render_template, request, url_for, redirect, session, flash
 from school_data import find_id, verify_staff, course_list, verify_student, sch, find_course
 from announcements import dates
+from flask_sqlalchemy import SQLAlchemy
+from models import db, Student
 
 #create flask app
 app = Flask(__name__)
 
 #secret key flash messages
 app.secret_key = "secret-key"
+
+# --------------
+#initialize database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///school.db'
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+# --------------
+
 
 #main route
 @app.route("/")
@@ -134,4 +146,10 @@ def add_new_grades():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True)
+    # with app.app_context():
+    #     db.create_all()
+    #     students = Student.query.all()
+    #     for s in students:
+    #         print(s.name, s.id, s.age)
+    #app.run(debug=True, use_reloader=True)
+    pass

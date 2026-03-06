@@ -139,6 +139,11 @@ class Student:
 			str_grades = " ".join(map(str, grades))
 			avg_grades[code] = [avg, credits, str_grades]
 		return avg_grades
+	
+	def save_grades(self):
+		filename = "grades.json"
+		with open(filename, "r") as file:
+			data = file.read()
 
 	def __str__(self):
 		return f"Name: {self.name:8} |  ID: {self.id} "

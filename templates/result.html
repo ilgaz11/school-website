@@ -50,13 +50,17 @@
                                 <td>Grade</td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="student-body">
                             {% for code, grade in grades.items() %}
                             <tr>
                                 <td>{{ code }}</td>
                                 <td>{{ grade[1] }}</td>
                                 <td>{{ grade[0] }}</td>
-                                <td>X</td>
+                                <!-- <td>
+                                    <form>
+                                        <button class="drop-button">Drop</button>
+                                    </form>
+                                </td> -->
                             </tr>
                             {% endfor %}
                         </tbody>
