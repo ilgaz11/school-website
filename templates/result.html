@@ -51,11 +51,11 @@
                             </tr>
                         </thead>
                         <tbody class="student-body">
-                            {% for code, grade in grades.items() %}
+                            {% for g in grades %}
                             <tr>
-                                <td>{{ code }}</td>
-                                <td>{{ grade[1] }}</td>
-                                <td>{{ grade[0] }}</td>
+                                <td>{{ g.course.code }}</td>
+                                <td>{{ g.course.credits }}</td>
+                                <td>{{ g.grade }}</td>
                                 <!-- <td>
                                     <form>
                                         <button class="drop-button">Drop</button>

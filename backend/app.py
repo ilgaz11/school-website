@@ -2,21 +2,25 @@ from flask import Flask, render_template, request, url_for, redirect, session, f
 from school_data import find_id, verify_staff, course_list, verify_student, sch, find_course
 from announcements import dates
 from flask_sqlalchemy import SQLAlchemy
-from models import db, Student
+from models import db, Student, Course, Staff
+import os
 
 #create flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
 #secret key flash messages
 app.secret_key = "secret-key"
 
 # --------------
-#initialize database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///school.db'
+#set database uri and initialize
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path, "school.db")
 db.init_app(app)
+
+os.makedirs(app.instance_path, exist_ok=True)
 
 with app.app_context():
     db.create_all()
+    # students = Student.query.all()
 # --------------
 
 
@@ -33,19 +37,21 @@ def ping():
 #student page
 @app.route("/student", methods=["POST", "GET"])
 def submit():
-    #print("1")
+
     if request.method == "POST":
-        #print("2")
+        #get from requests of id and password
         student_id = request.form.get("student-id")
         student_pass = request.form.get("student-pass")
-        student = find_id(student_id)
+        #get student from database
+        student = Student.query.filter_by(id=student_id).first()
+        # print(student.name)
         #check if id or password is wrong
-        if not student or not verify_student(student, student_pass):
+        if not student or (student.password != student_pass):
             flash("Invalid ID or password", "error")
             return redirect(url_for("home"))
-        avg_grades = student.avg_grades()
+        #create session id
         session["id"] = student_id
-        return render_template("result.html", s_data=student, grades=avg_grades, courses=course_list)
+        return render_template("result.html", s_data=student, grades=student.grades, courses=course_list)
     
     #print("4")
     stud = find_id(session['id'])
@@ -82,10 +88,15 @@ def add_course():
 #staff page
 @app.route("/staff", methods=["POST", "GET"])
 def staff_page():
-    staff_id = request.form.get("staff-id")
+    staff_id = request.form.get("staff-id").strip()
     staff_password = request.form.get("staff-pass")
-    staff = verify_staff(staff_id, staff_password)
-    if not staff:
+    staff = Staff.query.filter_by(id=staff_id).first()
+    # staff = verify_staff(staff_id, staff_password)
+    print(Staff.query.all())
+    print(type(staff_password)) 
+    print(type(staff_id))
+    print(staff)
+    if not staff or staff.password != staff_password.strip():
         flash("Invalid ID or password", "error")
         return redirect(url_for("home"))
     session["staff_name"] = staff.name
@@ -146,10 +157,5 @@ def add_new_grades():
 
 
 if __name__ == "__main__":
-    # with app.app_context():
-    #     db.create_all()
-    #     students = Student.query.all()
-    #     for s in students:
-    #         print(s.name, s.id, s.age)
-    #app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=True)
     pass
