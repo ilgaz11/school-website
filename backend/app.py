@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect, session, f
 from school_data import find_id, verify_staff, course_list, verify_student, sch, find_course
 from announcements import dates
 from flask_sqlalchemy import SQLAlchemy
-from models import db, Student, Course, Staff
+from models import db, Student, Course, Staff, Grade
 import os
 
 #create flask app
@@ -54,35 +54,54 @@ def submit():
         return render_template("result.html", s_data=student, grades=student.grades, courses=course_list)
     
     #print("4")
-    stud = find_id(session['id'])
-    avg_grades = stud.avg_grades()
+    stud = Student.query.get(session["id"])
+    # avg_grades = stud.avg_grades()
     # print(stud.grades)
     # print(session["data"])
-    return render_template("result.html", s_data=stud, grades=avg_grades, courses=course_list)
+    return render_template("result.html", s_data=stud, grades=stud.grades, courses=course_list)
 
 
 
 #add course action
 @app.route("/course", methods=["POST"])
 def add_course():
+    #get inputted course code and add/drop choice
     course_code = request.form.get("course-code")
     choice = request.form.get("sub-button")
-    #print(choice)
     st_id = session["id"]
-    st = find_id(st_id)
-    print(st.course_data)
-    if choice == "add":
-        success = st.enroll_class(course_code)
-    elif choice == "delete":
-        success = st.drop_class(course_code)
-    if not success:
-        flash("Unknown course code", "error")
-    elif success == 1:
-        pass
-    elif success == 2:
-        flash("Reached maximum course limit", "error")
-    print(st.course_data)
+    #check student's current amount of enrolled courses
+    count = Grade.query.filter_by(student_id=st_id).count()
+    #flash error if too many courses or course does not exist
 
+    course = Course.query.get(course_code)
+    if not course:
+        flash("Unknown course code", "error")
+        return redirect(url_for("submit"))
+    #check if student is already enrolled
+    already_enrolled = Grade.query.filter_by(student_id=st_id, course_code=course.code).first()
+    print(already_enrolled)
+    if choice == "add":
+        if count >= 7:
+            flash("Reached maximum course limit", "error")
+            return redirect(url_for("submit"))
+        if already_enrolled:
+            flash(f"Already enrolled to {course.code}", "error")
+        #if not, then add now row to database
+        else:
+            new_grade = Grade(student_id=st_id, course_code=course.code, grade=-1)
+            db.session.add(new_grade)
+            db.session.commit()
+            
+    #if user chooses to drop a course, delete the row from database
+    elif choice == "delete":
+        if not already_enrolled:
+            flash(f"Not enrolled to {course.code}", "error")
+        else:
+            #already enrolled contains the grade if it exists, so just delete it
+            db.session.delete(already_enrolled)
+            db.session.commit()
+
+    
     return redirect(url_for("submit"))
 
 #staff page
